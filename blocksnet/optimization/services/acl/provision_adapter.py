@@ -139,6 +139,30 @@ class ProvisionAdapter:
 
         return self.start_provisions_dfs[service_type].copy()
 
+    def score_provision(self, provision_df: pd.DataFrame) -> float:
+        """
+        Share of the demand in reach that is served, across the whole context.
+
+        Everyone the services can reach is scored, not only the blocks being
+        redeveloped: the point of placing a service is to make up the shortfall
+        wherever it falls, in the project's blocks and in the neighbours' alike.
+        A block only ever hosts what the optimizer puts there, but who benefits
+        is not limited to it.
+
+        Parameters
+        ----------
+        provision_df : pd.DataFrame
+            Provision data, indexed by block.
+
+        Returns
+        -------
+        float
+            Served share of the optimized blocks' demand, from 0 to 1.
+        """
+        if provision_df["demand"].sum() == 0:
+            return 1.0 if provision_df["capacity"].sum() > 0 else 0.0
+        return float(provision_strong_total(provision_df))
+
     def calculate_provision(
         self,
         service_type: str,
@@ -236,13 +260,7 @@ class ProvisionAdapter:
             log_config.set_logger_level(log_level)
 
             self.last_provisions_dfs[service_type] = new_provision_df
-            return float(provision_strong_total(new_provision_df))
-
-        last_provision_df = self.get_last_provision_df(service_type)
-        if last_provision_df["demand"].sum() == 0:
-            if last_provision_df["capacity"].sum() > 0:
-                return 1.0
-            return 0
+            return self.score_provision(new_provision_df)
 
         # Return current provision if no updates provided
-        return float(provision_strong_total(self.get_last_provision_df(service_type)))
+        return self.score_provision(self.get_last_provision_df(service_type))

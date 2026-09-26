@@ -1,0 +1,55 @@
+{
+  "block_ids": [
+    823,
+    955,
+    1071,
+    1129,
+    1182,
+    1411,
+    1428,
+    1429,
+    1433,
+    1473,
+    1518,
+    1526,
+    1907,
+    2043,
+    2093,
+    2098,
+    2886
+  ],
+  "joint_optimization": true,
+  "land_use": "RESIDENTIAL",
+  "service_weights": {
+    "kindergarten": 0.114,
+    "school": 0.114,
+    "pharmacy": 0.114,
+    "convenience": 0.114,
+    "playground": 0.114,
+    "post_office": 0.057,
+    "hairdresser": 0.057,
+    "fuel": 0.071
+  },
+  "active_service_weights": {
+    "convenience": 0.114,
+    "fuel": 0.071,
+    "hairdresser": 0.057,
+    "kindergarten": 0.114,
+    "pharmacy": 0.114,
+    "playground": 0.114,
+    "school": 0.114
+  },
+  "skipped_service_types": [
+    "post_office"
+  ],
+  "max_runs": 120,
+  "timeout_sec": 600.0,
+  "max_evals": 200,
+  "n_ei_candidates": 12,
+  "num_params": 119,
+  "data_files": [
+    "data/blocks_with_buildings_and_services.gpkg",
+    "data/acc_mx.pickle"
+  ],
+  "site_area_source": "site_area column, otherwise footprint_area"
+}

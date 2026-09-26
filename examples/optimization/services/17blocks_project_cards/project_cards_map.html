@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_48d667fe1fc4366318b03cb0f3aabf5b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    <div style='position:fixed;bottom:24px;left:24px;z-index:9999;background:#fff;padding:10px 14px;border:1px solid #ccc;border-radius:6px;font:12px/1.5 system-ui,sans-serif'><b>Кварталов:</b> 17<br><b>Объектов:</b> 242<br><b>Население:</b> 12 881 сейчас → 59 799 по проекту<br><span style='color:#666'>потенциал без сервисов: 79 659</span><br><span style='color:#666'>Нажмите на квартал, чтобы открыть карточку</span></div>
+    
+            <div class="folium-map" id="map_48d667fe1fc4366318b03cb0f3aabf5b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_48d667fe1fc4366318b03cb0f3aabf5b = L.map(
+                "map_48d667fe1fc4366318b03cb0f3aabf5b",
+                {
+                    center: [56.82418238876579, 60.62118297321598],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_0e7b376c8584768490b9bdfbcfcc872f = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        
+    
+        function geo_json_3ef8571dd72a86d517772f6376ac4e83_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_3ef8571dd72a86d517772f6376ac4e83_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_3ef8571dd72a86d517772f6376ac4e83_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_3ef8571dd72a86d517772f6376ac4e83.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_3ef8571dd72a86d517772f6376ac4e83_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_3ef8571dd72a86d517772f6376ac4e83 = L.geoJson(null, {
+                onEachFeature: geo_json_3ef8571dd72a86d517772f6376ac4e83_onEachFeature,
+            
+                style: geo_json_3ef8571dd72a86d517772f6376ac4e83_styler,
+        });
+
+        function geo_json_3ef8571dd72a86d517772f6376ac4e83_add (data) {
+            geo_json_3ef8571dd72a86d517772f6376ac4e83
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_3ef8571dd72a86d517772f6376ac4e83_add({"features": [{"geometry": {"coordinates": [[[60.59987335324046, 56.81258809563966], [60.6031192131501, 56.81283676817729], [60.60397886125051, 56.8103633658883], [60.60069323114427, 56.810028430890036], [60.59987335324046, 56.81258809563966]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_3ef8571dd72a86d517772f6376ac4e83.bindTooltip(
+                `<div>
+                     Квартал 823: 15 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_44ae47d62490de36d3478901a5ff72c9 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_0ff678f6e2cd3662f51f6de4ef82c492 = $(`<div id="html_0ff678f6e2cd3662f51f6de4ef82c492" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 823</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>57 549</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>29 109</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>28 440</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>89 352</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 615</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>11 885</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 244</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 574 (<span style='color:#27ae60'>+2 330</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>4 834</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>15</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 160<br>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 320<br>1 × 180</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 450</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 000</td></tr></table></div></div>`)[0];
+                popup_44ae47d62490de36d3478901a5ff72c9.setContent(html_0ff678f6e2cd3662f51f6de4ef82c492);
+            
+        
+
+        geo_json_3ef8571dd72a86d517772f6376ac4e83.bindPopup(popup_44ae47d62490de36d3478901a5ff72c9)
+        ;
+
+        
+    
+    
+        function geo_json_ce1820c7fa5a1c98c12117fca766c8b2_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_ce1820c7fa5a1c98c12117fca766c8b2_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_ce1820c7fa5a1c98c12117fca766c8b2_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_ce1820c7fa5a1c98c12117fca766c8b2.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_ce1820c7fa5a1c98c12117fca766c8b2_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_ce1820c7fa5a1c98c12117fca766c8b2 = L.geoJson(null, {
+                onEachFeature: geo_json_ce1820c7fa5a1c98c12117fca766c8b2_onEachFeature,
+            
+                style: geo_json_ce1820c7fa5a1c98c12117fca766c8b2_styler,
+        });
+
+        function geo_json_ce1820c7fa5a1c98c12117fca766c8b2_add (data) {
+            geo_json_ce1820c7fa5a1c98c12117fca766c8b2
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_ce1820c7fa5a1c98c12117fca766c8b2_add({"features": [{"geometry": {"coordinates": [[[60.58285462484984, 56.80598681167833], [60.58562630164339, 56.804941682557654], [60.584729942592055, 56.80424826350366], [60.58194908806079, 56.8052800128024], [60.58285462484984, 56.80598681167833]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_ce1820c7fa5a1c98c12117fca766c8b2.bindTooltip(
+                `<div>
+                     Квартал 955: 8 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_ebf688437cf2af377d15a40cf8a08758 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_5dbf3b5bb96f9db8c93cfd127c43bbbf = $(`<div id="html_5dbf3b5bb96f9db8c93cfd127c43bbbf" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 955</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>19 582</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>12 792</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>6 790</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>32 651</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>505</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 125</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>73</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 306 (<span style='color:#27ae60'>+1 233</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 644</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>8</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 50<br>1 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 185</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr></table></div></div>`)[0];
+                popup_ebf688437cf2af377d15a40cf8a08758.setContent(html_5dbf3b5bb96f9db8c93cfd127c43bbbf);
+            
+        
+
+        geo_json_ce1820c7fa5a1c98c12117fca766c8b2.bindPopup(popup_ebf688437cf2af377d15a40cf8a08758)
+        ;
+
+        
+    
+    
+        function geo_json_6ea9ea4484a8480c1af5f10903ea99cf_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_6ea9ea4484a8480c1af5f10903ea99cf_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_6ea9ea4484a8480c1af5f10903ea99cf_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_6ea9ea4484a8480c1af5f10903ea99cf.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_6ea9ea4484a8480c1af5f10903ea99cf_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_6ea9ea4484a8480c1af5f10903ea99cf = L.geoJson(null, {
+                onEachFeature: geo_json_6ea9ea4484a8480c1af5f10903ea99cf_onEachFeature,
+            
+                style: geo_json_6ea9ea4484a8480c1af5f10903ea99cf_styler,
+        });
+
+        function geo_json_6ea9ea4484a8480c1af5f10903ea99cf_add (data) {
+            geo_json_6ea9ea4484a8480c1af5f10903ea99cf
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_6ea9ea4484a8480c1af5f10903ea99cf_add({"features": [{"geometry": {"coordinates": [[[60.65449235041207, 56.846705780654275], [60.65276705388828, 56.85120158249023], [60.655757936681745, 56.85153660835912], [60.656541103634446, 56.84935517795851], [60.657427137730394, 56.84703705969268], [60.65449235041207, 56.846705780654275]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_6ea9ea4484a8480c1af5f10903ea99cf.bindTooltip(
+                `<div>
+                     Квартал 1071: 17 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_cfa40e156ac1e980f03e67b2c30f4c4c = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_0cddb8a5a66d8bc53e370a840424c135 = $(`<div id="html_0cddb8a5a66d8bc53e370a840424c135" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1071</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Общественно-деловые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>93 961</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>24 996</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>68 965</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>149 263</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 055</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>19 540</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>0</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>5 970 (<span style='color:#27ae60'>+5 970</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>7 892</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>17</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 450</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>площадка для выгула собак</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 265</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>больница</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 110</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 320</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>торговый центр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 7 000</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 40</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 30</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr></table></div></div>`)[0];
+                popup_cfa40e156ac1e980f03e67b2c30f4c4c.setContent(html_0cddb8a5a66d8bc53e370a840424c135);
+            
+        
+
+        geo_json_6ea9ea4484a8480c1af5f10903ea99cf.bindPopup(popup_cfa40e156ac1e980f03e67b2c30f4c4c)
+        ;
+
+        
+    
+    
+        function geo_json_cecd0fa393c2908954e9b07bfd2066cf_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_cecd0fa393c2908954e9b07bfd2066cf_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_cecd0fa393c2908954e9b07bfd2066cf_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_cecd0fa393c2908954e9b07bfd2066cf.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_cecd0fa393c2908954e9b07bfd2066cf_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_cecd0fa393c2908954e9b07bfd2066cf = L.geoJson(null, {
+                onEachFeature: geo_json_cecd0fa393c2908954e9b07bfd2066cf_onEachFeature,
+            
+                style: geo_json_cecd0fa393c2908954e9b07bfd2066cf_styler,
+        });
+
+        function geo_json_cecd0fa393c2908954e9b07bfd2066cf_add (data) {
+            geo_json_cecd0fa393c2908954e9b07bfd2066cf
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_cecd0fa393c2908954e9b07bfd2066cf_add({"features": [{"geometry": {"coordinates": [[[60.62880292097774, 56.86255348153392], [60.62925849293222, 56.864560647002946], [60.63315316866038, 56.86425587959886], [60.63265145233128, 56.862249115365344], [60.62880292097774, 56.86255348153392]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_cecd0fa393c2908954e9b07bfd2066cf.bindTooltip(
+                `<div>
+                     Квартал 1129: 10 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_d8e1af554f952b43b0e8ced35a22eb57 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_a695a49cc960702bec3e0a3b7d3669f3 = $(`<div id="html_a695a49cc960702bec3e0a3b7d3669f3" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1129</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Общественно-деловые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>53 751</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>14 371</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>39 380</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>86 989</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 395</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>9 700</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>0</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 479 (<span style='color:#27ae60'>+3 479</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>4 515</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>10</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>2 × 60<br>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 160</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 320</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr></table></div></div>`)[0];
+                popup_d8e1af554f952b43b0e8ced35a22eb57.setContent(html_a695a49cc960702bec3e0a3b7d3669f3);
+            
+        
+
+        geo_json_cecd0fa393c2908954e9b07bfd2066cf.bindPopup(popup_d8e1af554f952b43b0e8ced35a22eb57)
+        ;
+
+        
+    
+    
+        function geo_json_37880fbb3df1b7398649ec060cc97712_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_37880fbb3df1b7398649ec060cc97712_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_37880fbb3df1b7398649ec060cc97712_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_37880fbb3df1b7398649ec060cc97712.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_37880fbb3df1b7398649ec060cc97712_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_37880fbb3df1b7398649ec060cc97712 = L.geoJson(null, {
+                onEachFeature: geo_json_37880fbb3df1b7398649ec060cc97712_onEachFeature,
+            
+                style: geo_json_37880fbb3df1b7398649ec060cc97712_styler,
+        });
+
+        function geo_json_37880fbb3df1b7398649ec060cc97712_add (data) {
+            geo_json_37880fbb3df1b7398649ec060cc97712
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_37880fbb3df1b7398649ec060cc97712_add({"features": [{"geometry": {"coordinates": [[[60.58051492313595, 56.85983662275729], [60.575087820893124, 56.863147939565394], [60.57606677958404, 56.86361618293136], [60.581420459925056, 56.860311597317], [60.58167131808962, 56.86002059249247], [60.58051492313595, 56.85983662275729]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_37880fbb3df1b7398649ec060cc97712.bindTooltip(
+                `<div>
+                     Квартал 1182: 17 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_6096b7900e195d76f44600fb02954881 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_e7da92cbb00e116ac92688c0f0d0ae3a = $(`<div id="html_e7da92cbb00e116ac92688c0f0d0ae3a" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1182</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>39 728</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>18 523</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>21 205</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>63 713</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>995</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>7 455</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>636</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 548 (<span style='color:#27ae60'>+1 912</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 337</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>17</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>4</td><td style='padding:3px 0;text-align:right'>1 × 50<br>3 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 185<br>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 320</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>подстанция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 5</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 150</td></tr></table></div></div>`)[0];
+                popup_6096b7900e195d76f44600fb02954881.setContent(html_e7da92cbb00e116ac92688c0f0d0ae3a);
+            
+        
+
+        geo_json_37880fbb3df1b7398649ec060cc97712.bindPopup(popup_6096b7900e195d76f44600fb02954881)
+        ;
+
+        
+    
+    
+        function geo_json_aa7cc1c47f85c08cd96de9e823063925_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_aa7cc1c47f85c08cd96de9e823063925_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_aa7cc1c47f85c08cd96de9e823063925_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_aa7cc1c47f85c08cd96de9e823063925.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_aa7cc1c47f85c08cd96de9e823063925_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_aa7cc1c47f85c08cd96de9e823063925 = L.geoJson(null, {
+                onEachFeature: geo_json_aa7cc1c47f85c08cd96de9e823063925_onEachFeature,
+            
+                style: geo_json_aa7cc1c47f85c08cd96de9e823063925_styler,
+        });
+
+        function geo_json_aa7cc1c47f85c08cd96de9e823063925_add (data) {
+            geo_json_aa7cc1c47f85c08cd96de9e823063925
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_aa7cc1c47f85c08cd96de9e823063925_add({"features": [{"geometry": {"coordinates": [[[60.62513096547582, 56.890860356438715], [60.62770226166239, 56.88855337449857], [60.62378642689867, 56.88719970053521], [60.62119983448258, 56.88953684636881], [60.62513096547582, 56.890860356438715]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_aa7cc1c47f85c08cd96de9e823063925.bindTooltip(
+                `<div>
+                     Квартал 1411: 15 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_3ecc8ad4697ea574e2e747a828a1d49b = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_7b0bf2aed50ad885ac047ed239e10685 = $(`<div id="html_7b0bf2aed50ad885ac047ed239e10685" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1411</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>85 246</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>27 806</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>57 440</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>151 169</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 350</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>10 585</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 478</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>6 046 (<span style='color:#27ae60'>+4 568</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>7 160</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>15</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 160<br>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 320<br>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>площадка для выгула собак</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 265</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>паркинг</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 330</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>подстанция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 15</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr></table></div></div>`)[0];
+                popup_3ecc8ad4697ea574e2e747a828a1d49b.setContent(html_7b0bf2aed50ad885ac047ed239e10685);
+            
+        
+
+        geo_json_aa7cc1c47f85c08cd96de9e823063925.bindPopup(popup_3ecc8ad4697ea574e2e747a828a1d49b)
+        ;
+
+        
+    
+    
+        function geo_json_73e573fe23a2224f95418f927ac28a98_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_73e573fe23a2224f95418f927ac28a98_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_73e573fe23a2224f95418f927ac28a98_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_73e573fe23a2224f95418f927ac28a98.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_73e573fe23a2224f95418f927ac28a98_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_73e573fe23a2224f95418f927ac28a98 = L.geoJson(null, {
+                onEachFeature: geo_json_73e573fe23a2224f95418f927ac28a98_onEachFeature,
+            
+                style: geo_json_73e573fe23a2224f95418f927ac28a98_styler,
+        });
+
+        function geo_json_73e573fe23a2224f95418f927ac28a98_add (data) {
+            geo_json_73e573fe23a2224f95418f927ac28a98
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_73e573fe23a2224f95418f927ac28a98_add({"features": [{"geometry": {"coordinates": [[[60.63384522744782, 56.899020130631605], [60.634646749876, 56.89829837952249], [60.63094506232592, 56.897048647863315], [60.630119065930465, 56.89776708160017], [60.63384522744782, 56.899020130631605]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_73e573fe23a2224f95418f927ac28a98.bindTooltip(
+                `<div>
+                     Квартал 1428: 9 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_16e15e0e80e39df573f7e121a7ae4a70 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_a6485515524b15ff3337bdecb8c351e3 = $(`<div id="html_a6485515524b15ff3337bdecb8c351e3" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1428</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>25 051</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>13 311</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>11 740</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>43 426</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>505</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 430</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>133</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 737 (<span style='color:#27ae60'>+1 604</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 104</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>9</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>2 × 185<br>1 × 45</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr></table></div></div>`)[0];
+                popup_16e15e0e80e39df573f7e121a7ae4a70.setContent(html_a6485515524b15ff3337bdecb8c351e3);
+            
+        
+
+        geo_json_73e573fe23a2224f95418f927ac28a98.bindPopup(popup_16e15e0e80e39df573f7e121a7ae4a70)
+        ;
+
+        
+    
+    
+        function geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4 = L.geoJson(null, {
+                onEachFeature: geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_onEachFeature,
+            
+                style: geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_styler,
+        });
+
+        function geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_add (data) {
+            geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4_add({"features": [{"geometry": {"coordinates": [[[60.634646749876, 56.89829837952249], [60.635723604436116, 56.897436269642384], [60.63186895459058, 56.89619319246214], [60.63094506232592, 56.897048647863315], [60.634646749876, 56.89829837952249]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4.bindTooltip(
+                `<div>
+                     Квартал 1429: 12 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_d94d67e28bdfa3a5facc1a98718b71e4 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_84e956a0d0eb4d7683d7b32854021beb = $(`<div id="html_84e956a0d0eb4d7683d7b32854021beb" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1429</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>30 471</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>11 611</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>18 860</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>35 907</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>565</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>11 470</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>475</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 436 (<span style='color:#27ae60'>+961</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 559</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>12</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>хостел</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>3 × 200</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 100<br>1 × 30</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>площадка для выгула собак</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 265</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>торговый центр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 7 000</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 40</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr></table></div></div>`)[0];
+                popup_d94d67e28bdfa3a5facc1a98718b71e4.setContent(html_84e956a0d0eb4d7683d7b32854021beb);
+            
+        
+
+        geo_json_9ae031337e9d89c8cd56e8c94e0d2cb4.bindPopup(popup_d94d67e28bdfa3a5facc1a98718b71e4)
+        ;
+
+        
+    
+    
+        function geo_json_fae9b3b74bdf86b96d62353ab326f944_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_fae9b3b74bdf86b96d62353ab326f944_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_fae9b3b74bdf86b96d62353ab326f944_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_fae9b3b74bdf86b96d62353ab326f944.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_fae9b3b74bdf86b96d62353ab326f944_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_fae9b3b74bdf86b96d62353ab326f944 = L.geoJson(null, {
+                onEachFeature: geo_json_fae9b3b74bdf86b96d62353ab326f944_onEachFeature,
+            
+                style: geo_json_fae9b3b74bdf86b96d62353ab326f944_styler,
+        });
+
+        function geo_json_fae9b3b74bdf86b96d62353ab326f944_add (data) {
+            geo_json_fae9b3b74bdf86b96d62353ab326f944
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_fae9b3b74bdf86b96d62353ab326f944_add({"features": [{"geometry": {"coordinates": [[[60.63384522744782, 56.899020130631605], [60.63283433562056, 56.89988484371764], [60.636582401526304, 56.9011721151148], [60.63753467801426, 56.90030320927979], [60.63384522744782, 56.899020130631605]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_fae9b3b74bdf86b96d62353ab326f944.bindTooltip(
+                `<div>
+                     Квартал 1433: 14 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_07c93c2bc66ef8f2eebaa13d3c8b0b6a = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_9bf7420e62c08936414311816760b365 = $(`<div id="html_9bf7420e62c08936414311816760b365" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1433</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>30 424</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>16 994</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>13 430</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>46 636</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>505</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>6 890</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>396</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 865 (<span style='color:#27ae60'>+1 469</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 555</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>14</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>1 × 185<br>1 × 90<br>1 × 45</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 450</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr></table></div></div>`)[0];
+                popup_07c93c2bc66ef8f2eebaa13d3c8b0b6a.setContent(html_9bf7420e62c08936414311816760b365);
+            
+        
+
+        geo_json_fae9b3b74bdf86b96d62353ab326f944.bindPopup(popup_07c93c2bc66ef8f2eebaa13d3c8b0b6a)
+        ;
+
+        
+    
+    
+        function geo_json_046f2174e9803f0d994e74b01e0b8c6d_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_046f2174e9803f0d994e74b01e0b8c6d_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_046f2174e9803f0d994e74b01e0b8c6d_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_046f2174e9803f0d994e74b01e0b8c6d.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_046f2174e9803f0d994e74b01e0b8c6d_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_046f2174e9803f0d994e74b01e0b8c6d = L.geoJson(null, {
+                onEachFeature: geo_json_046f2174e9803f0d994e74b01e0b8c6d_onEachFeature,
+            
+                style: geo_json_046f2174e9803f0d994e74b01e0b8c6d_styler,
+        });
+
+        function geo_json_046f2174e9803f0d994e74b01e0b8c6d_add (data) {
+            geo_json_046f2174e9803f0d994e74b01e0b8c6d
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_046f2174e9803f0d994e74b01e0b8c6d_add({"features": [{"geometry": {"coordinates": [[[60.60302633635894, 56.78476306500941], [60.607113488893354, 56.78541327413956], [60.60956700411237, 56.78272522318369], [60.60976891434237, 56.78227943052882], [60.60449477439525, 56.78163922278899], [60.60302633635894, 56.78476306500941]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_046f2174e9803f0d994e74b01e0b8c6d.bindTooltip(
+                `<div>
+                     Квартал 1473: 25 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_31b78c660892627630ec06b10b0b5e44 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_fc1991bea0a06136e9e87a871a37eb5f = $(`<div id="html_fc1991bea0a06136e9e87a871a37eb5f" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1473</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>110 583</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>33 223</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>77 360</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>175 617</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 015</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>22 245</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 610</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>7 024 (<span style='color:#27ae60'>+5 414</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>9 288</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>25</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>2 × 60<br>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>1 × 50<br>2 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 160<br>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>хостел</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>2 × 200</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>1 × 320<br>1 × 180</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>площадка для выгула собак</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 265</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>больница</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 110</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>торговый центр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 7 000</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>паркинг</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 330</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 30</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr></table></div></div>`)[0];
+                popup_31b78c660892627630ec06b10b0b5e44.setContent(html_fc1991bea0a06136e9e87a871a37eb5f);
+            
+        
+
+        geo_json_046f2174e9803f0d994e74b01e0b8c6d.bindPopup(popup_31b78c660892627630ec06b10b0b5e44)
+        ;
+
+        
+    
+    
+        function geo_json_9e52b62bfc12419385561b31f383f6c8_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_9e52b62bfc12419385561b31f383f6c8_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_9e52b62bfc12419385561b31f383f6c8_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_9e52b62bfc12419385561b31f383f6c8.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_9e52b62bfc12419385561b31f383f6c8_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_9e52b62bfc12419385561b31f383f6c8 = L.geoJson(null, {
+                onEachFeature: geo_json_9e52b62bfc12419385561b31f383f6c8_onEachFeature,
+            
+                style: geo_json_9e52b62bfc12419385561b31f383f6c8_styler,
+        });
+
+        function geo_json_9e52b62bfc12419385561b31f383f6c8_add (data) {
+            geo_json_9e52b62bfc12419385561b31f383f6c8
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_9e52b62bfc12419385561b31f383f6c8_add({"features": [{"geometry": {"coordinates": [[[60.60940562889037, 56.758753423178426], [60.6081574565595, 56.75899155258042], [60.60887943859403, 56.76059134053878], [60.61002971505581, 56.76044377385314], [60.60940562889037, 56.758753423178426]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_9e52b62bfc12419385561b31f383f6c8.bindTooltip(
+                `<div>
+                     Квартал 1518: 15 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_3af7837844206474f5300264c77e46e0 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_62f8202a482266b6dc2aa4e7da962bb3 = $(`<div id="html_62f8202a482266b6dc2aa4e7da962bb3" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1518</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>14 317</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 442</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>10 875</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>6 825</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>75</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>9 885</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>45</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>272 (<span style='color:#27ae60'>+227</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 202</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>15</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>хостел</td><td style='padding:3px 8px;text-align:right'>4</td><td style='padding:3px 0;text-align:right'>3 × 200<br>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>4</td><td style='padding:3px 0;text-align:right'>1 × 100<br>1 × 50<br>2 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>2 × 185<br>1 × 45</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 450</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr></table></div></div>`)[0];
+                popup_3af7837844206474f5300264c77e46e0.setContent(html_62f8202a482266b6dc2aa4e7da962bb3);
+            
+        
+
+        geo_json_9e52b62bfc12419385561b31f383f6c8.bindPopup(popup_3af7837844206474f5300264c77e46e0)
+        ;
+
+        
+    
+    
+        function geo_json_3fbec0de88f6b4c709ce890f1c042b37_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_3fbec0de88f6b4c709ce890f1c042b37_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_3fbec0de88f6b4c709ce890f1c042b37_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_3fbec0de88f6b4c709ce890f1c042b37.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_3fbec0de88f6b4c709ce890f1c042b37_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_3fbec0de88f6b4c709ce890f1c042b37 = L.geoJson(null, {
+                onEachFeature: geo_json_3fbec0de88f6b4c709ce890f1c042b37_onEachFeature,
+            
+                style: geo_json_3fbec0de88f6b4c709ce890f1c042b37_styler,
+        });
+
+        function geo_json_3fbec0de88f6b4c709ce890f1c042b37_add (data) {
+            geo_json_3fbec0de88f6b4c709ce890f1c042b37
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_3fbec0de88f6b4c709ce890f1c042b37_add({"features": [{"geometry": {"coordinates": [[[60.607280271630074, 56.75714007973422], [60.606903930548285, 56.75587353097977], [60.60323283545748, 56.756195533095465], [60.602620986275696, 56.75756736533903], [60.60411925195966, 56.757435299317024], [60.605777363242325, 56.757289397267], [60.607280271630074, 56.75714007973422]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_3fbec0de88f6b4c709ce890f1c042b37.bindTooltip(
+                `<div>
+                     Квартал 1526: 9 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_56fefcacc6f85524787769a2f453d0fc = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_c8713ae28f52ea36f4f03ee0d82d0c67 = $(`<div id="html_c8713ae28f52ea36f4f03ee0d82d0c67" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1526</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>37 297</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>10 017</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>27 280</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>57 731</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>695</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>8 130</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>455</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 309 (<span style='color:#27ae60'>+1 854</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 132</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>9</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 180</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>учреждение высшего профессионального образования</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 500</td></tr></table></div></div>`)[0];
+                popup_56fefcacc6f85524787769a2f453d0fc.setContent(html_c8713ae28f52ea36f4f03ee0d82d0c67);
+            
+        
+
+        geo_json_3fbec0de88f6b4c709ce890f1c042b37.bindPopup(popup_56fefcacc6f85524787769a2f453d0fc)
+        ;
+
+        
+    
+    
+        function geo_json_44952cc282057f76bf830f145af66875_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_44952cc282057f76bf830f145af66875_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_44952cc282057f76bf830f145af66875_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_44952cc282057f76bf830f145af66875.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_44952cc282057f76bf830f145af66875_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_44952cc282057f76bf830f145af66875 = L.geoJson(null, {
+                onEachFeature: geo_json_44952cc282057f76bf830f145af66875_onEachFeature,
+            
+                style: geo_json_44952cc282057f76bf830f145af66875_styler,
+        });
+
+        function geo_json_44952cc282057f76bf830f145af66875_add (data) {
+            geo_json_44952cc282057f76bf830f145af66875
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_44952cc282057f76bf830f145af66875_add({"features": [{"geometry": {"coordinates": [[[60.70926629866317, 56.750825116064846], [60.70893590010499, 56.75196358449688], [60.708718693645515, 56.75301228676311], [60.713637961067185, 56.75297538770016], [60.71347276178809, 56.7511169698248], [60.70926629866317, 56.750825116064846]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_44952cc282057f76bf830f145af66875.bindTooltip(
+                `<div>
+                     Квартал 1907: 16 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_2b6291c0ec047f1853903bf028a761af = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_6ad2b52eb06e3ac26ac79bb09d09098c = $(`<div id="html_6ad2b52eb06e3ac26ac79bb09d09098c" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 1907</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>63 359</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>29 654</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>33 705</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>102 056</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>995</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>12 290</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 245</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>4 082 (<span style='color:#27ae60'>+2 837</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>5 322</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>16</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 450</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>больница</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 110</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 320</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>торговый центр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 7 000</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>подстанция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 5</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 150</td></tr></table></div></div>`)[0];
+                popup_2b6291c0ec047f1853903bf028a761af.setContent(html_6ad2b52eb06e3ac26ac79bb09d09098c);
+            
+        
+
+        geo_json_44952cc282057f76bf830f145af66875.bindPopup(popup_2b6291c0ec047f1853903bf028a761af)
+        ;
+
+        
+    
+    
+        function geo_json_f83e81a3df32798e803236f72a6329f6_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_f83e81a3df32798e803236f72a6329f6_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_f83e81a3df32798e803236f72a6329f6_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_f83e81a3df32798e803236f72a6329f6.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_f83e81a3df32798e803236f72a6329f6_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_f83e81a3df32798e803236f72a6329f6 = L.geoJson(null, {
+                onEachFeature: geo_json_f83e81a3df32798e803236f72a6329f6_onEachFeature,
+            
+                style: geo_json_f83e81a3df32798e803236f72a6329f6_styler,
+        });
+
+        function geo_json_f83e81a3df32798e803236f72a6329f6_add (data) {
+            geo_json_f83e81a3df32798e803236f72a6329f6
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_f83e81a3df32798e803236f72a6329f6_add({"features": [{"geometry": {"coordinates": [[[60.637164527916575, 56.775528234544375], [60.64090604327058, 56.77750292593797], [60.64398638716169, 56.778842509900976], [60.6474325218899, 56.7800343829865], [60.64839512935586, 56.780203140717624], [60.64960801476298, 56.780055477744405], [60.65035884858645, 56.78009766722463], [60.65077048318016, 56.780065450674556], [60.65067068513147, 56.780039825794816], [60.64989962460042, 56.77982659703719], [60.649834241143445, 56.77973969431328], [60.65008455532488, 56.77940437508704], [60.64981528380979, 56.77934417839794], [60.649837723102706, 56.779291188274804], [60.6494322682926, 56.77920195273829], [60.649417179802526, 56.77922325482746], [60.64912005261343, 56.77917429179852], [60.649102642817205, 56.77918891712554], [60.64771218042455, 56.77888559939388], [60.6473280042543, 56.77902613055551], [60.647073821229256, 56.77899751565576], [60.646079721864226, 56.779025812612296], [60.645864493258244, 56.77911813525888], [60.643707129341514, 56.77831357331519], [60.64166554056976, 56.77742394077687], [60.637537097555985, 56.77532854706515], [60.637164527916575, 56.775528234544375]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_f83e81a3df32798e803236f72a6329f6.bindTooltip(
+                `<div>
+                     Квартал 2043: 10 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_9bc4099f03e0f4a2d35b8dad9f1a7f6f = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_a8801a20ad603fb023d5b9807d6cd300 = $(`<div id="html_a8801a20ad603fb023d5b9807d6cd300" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 2043</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Зона транспортной инфраструктуры</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>50 333</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>10 493</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>39 840</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>81 923</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>505</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>9 685</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>0</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>3 276 (<span style='color:#27ae60'>+3 276</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>4 227</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>10</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 250</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 780</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>больница</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 110</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 185</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr></table></div></div>`)[0];
+                popup_9bc4099f03e0f4a2d35b8dad9f1a7f6f.setContent(html_a8801a20ad603fb023d5b9807d6cd300);
+            
+        
+
+        geo_json_f83e81a3df32798e803236f72a6329f6.bindPopup(popup_9bc4099f03e0f4a2d35b8dad9f1a7f6f)
+        ;
+
+        
+    
+    
+        function geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_b7f7b6abbeae4e51c640f62f6da8b11e.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_b7f7b6abbeae4e51c640f62f6da8b11e = L.geoJson(null, {
+                onEachFeature: geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_onEachFeature,
+            
+                style: geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_styler,
+        });
+
+        function geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_add (data) {
+            geo_json_b7f7b6abbeae4e51c640f62f6da8b11e
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_b7f7b6abbeae4e51c640f62f6da8b11e_add({"features": [{"geometry": {"coordinates": [[[60.60285696064736, 56.746933435251044], [60.6010348420299, 56.74469457129593], [60.598378045423814, 56.745328004791716], [60.59777685991249, 56.74445960064974], [60.59414403714898, 56.74533950521965], [60.59581167651511, 56.74749383112728], [60.59570844169723, 56.74760246088549], [60.59569088759863, 56.74762102416716], [60.59696732133902, 56.747740653984636], [60.597940319946645, 56.74780528142869], [60.598770378037145, 56.747916660379865], [60.60285696064736, 56.746933435251044]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_b7f7b6abbeae4e51c640f62f6da8b11e.bindTooltip(
+                `<div>
+                     Квартал 2093: 20 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_2fbbe4e9be678f84eabb9ae254adf611 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_77e76b5669110360b1a5b31f4c373a53 = $(`<div id="html_77e76b5669110360b1a5b31f4c373a53" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 2093</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Производственные зоны, зоны инженерной и транспортной инфраструктур</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>131 966</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>31 141</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>100 825</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>200 991</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 040</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>30 590</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>0</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>8 039 (<span style='color:#27ae60'>+8 039</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>11 085</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>20</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>2</td><td style='padding:3px 0;text-align:right'>2 × 320</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>банк</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>кинотеатр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 450</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>больница</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 110</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>хостел</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 200</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>отель</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>торговый центр</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 7 000</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>паркинг</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 330</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 60</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 30</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>религиозный объект</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 300</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 150</td></tr></table></div></div>`)[0];
+                popup_2fbbe4e9be678f84eabb9ae254adf611.setContent(html_77e76b5669110360b1a5b31f4c373a53);
+            
+        
+
+        geo_json_b7f7b6abbeae4e51c640f62f6da8b11e.bindPopup(popup_2fbbe4e9be678f84eabb9ae254adf611)
+        ;
+
+        
+    
+    
+        function geo_json_756ef104417f11ac4aa184bd38f5ae63_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_756ef104417f11ac4aa184bd38f5ae63_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_756ef104417f11ac4aa184bd38f5ae63_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_756ef104417f11ac4aa184bd38f5ae63.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_756ef104417f11ac4aa184bd38f5ae63_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_756ef104417f11ac4aa184bd38f5ae63 = L.geoJson(null, {
+                onEachFeature: geo_json_756ef104417f11ac4aa184bd38f5ae63_onEachFeature,
+            
+                style: geo_json_756ef104417f11ac4aa184bd38f5ae63_styler,
+        });
+
+        function geo_json_756ef104417f11ac4aa184bd38f5ae63_add (data) {
+            geo_json_756ef104417f11ac4aa184bd38f5ae63
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_756ef104417f11ac4aa184bd38f5ae63_add({"features": [{"geometry": {"coordinates": [[[60.58721532483012, 56.775940974334034], [60.59143764559455, 56.77554356642033], [60.59241534192348, 56.77488788566947], [60.589125505127654, 56.77318652776144], [60.588822213627296, 56.773231741806356], [60.58619764305027, 56.77355291231975], [60.58721532483012, 56.775940974334034]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_756ef104417f11ac4aa184bd38f5ae63.bindTooltip(
+                `<div>
+                     Квартал 2098: 13 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_ab1e0810b26451cde420024211c85d09 = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_e41068d609f2444dffd9a08b90ec3a9b = $(`<div id="html_e41068d609f2444dffd9a08b90ec3a9b" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 2098</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>74 989</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>20 679</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>54 310</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>122 688</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 055</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>13 855</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>5 091</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>4 907 (<span style='color:#c0392b'>-184</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>6 299</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>13</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>хостел</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 320</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 40</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>полиция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 90</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>школа</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 1 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>подстанция</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 15</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>плавательный бассейн</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 500</td></tr></table></div></div>`)[0];
+                popup_ab1e0810b26451cde420024211c85d09.setContent(html_e41068d609f2444dffd9a08b90ec3a9b);
+            
+        
+
+        geo_json_756ef104417f11ac4aa184bd38f5ae63.bindPopup(popup_ab1e0810b26451cde420024211c85d09)
+        ;
+
+        
+    
+    
+        function geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#1a1a1a", "fillColor": "#2ca02c", "fillOpacity": 0.45, "weight": 1.2};
+            }
+        }
+        function geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0.65, "weight": 3};
+            }
+        }
+
+        function geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        geo_json_fef1cf35a390ce43ee7e00d3eb8b6260.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_fef1cf35a390ce43ee7e00d3eb8b6260 = L.geoJson(null, {
+                onEachFeature: geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_onEachFeature,
+            
+                style: geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_styler,
+        });
+
+        function geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_add (data) {
+            geo_json_fef1cf35a390ce43ee7e00d3eb8b6260
+                .addData(data)
+                .addTo(map_48d667fe1fc4366318b03cb0f3aabf5b);
+        }
+            geo_json_fef1cf35a390ce43ee7e00d3eb8b6260_add({"features": [{"geometry": {"coordinates": [[[60.62017022366581, 56.88652524620942], [60.62112744095225, 56.88546353124526], [60.62172691036397, 56.88477683386171], [60.62184777113247, 56.88465005758039], [60.62192028689413, 56.88456073093523], [60.6222635321761, 56.884256520134294], [60.62231550230654, 56.88421855279573], [60.62223875571856, 56.88420501660484], [60.6216658756759, 56.88403862010148], [60.621254949063015, 56.8839461772795], [60.621455577938725, 56.882908821076455], [60.62034124165321, 56.88274506011385], [60.620360579376154, 56.88329180762322], [60.6204137581143, 56.883530842065], [60.62050077786762, 56.88385175330385], [60.62052011559057, 56.884068333817126], [60.62044276469874, 56.88417398239255], [60.620288062915066, 56.88436150787839], [60.61990130845589, 56.884778814737714], [60.61991097731737, 56.885193475798815], [60.619862633009966, 56.88549984662096], [60.61974822229861, 56.88644763825524], [60.6199456083518, 56.8864928450868], [60.62017022366581, 56.88652524620942]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_fef1cf35a390ce43ee7e00d3eb8b6260.bindTooltip(
+                `<div>
+                     Квартал 2886: 17 объектов
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+        var popup_b1f20f2535562daed86de71ef3ebbe9d = L.popup({"maxWidth": 470});
+
+        
+            
+                var html_e2277820abad0352965ff0a6631a25d9 = $(`<div id="html_e2277820abad0352965ff0a6631a25d9" style="width: 100.0%; height: 100.0%;"><div style='font:13px/1.45 system-ui,sans-serif;max-width:430px'><div style='font-size:15px;font-weight:700;margin-bottom:6px'>Квартал 2886</div><table style='border-collapse:collapse;width:100%'><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилые зоны</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>Землепользование проектное</td><td style='padding:2px 0;text-align:right;font-weight:600'>Жилая застройка</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Участок, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>всего</td><td style='padding:2px 0;text-align:right;font-weight:600'>29 815</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>16 855</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>под сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>12 960</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Поэтажная площадь, м²</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>жильё</td><td style='padding:2px 0;text-align:right;font-weight:600'>48 238</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>встроенные сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>905</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>отдельно стоящие сервисы</td><td style='padding:2px 0;text-align:right;font-weight:600'>5 255</td></tr><tr><td colspan='2' style='padding:7px 0 2px;font-weight:600;border-bottom:1px solid #eee'>Население</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>сейчас</td><td style='padding:2px 0;text-align:right;font-weight:600'>0</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>по проекту</td><td style='padding:2px 0;text-align:right;font-weight:600'>1 929 (<span style='color:#27ae60'>+1 929</span>)</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>потенциал без сервисов</td><td style='padding:2px 0;text-align:right;font-weight:600'>2 504</td></tr><tr><td style='padding:2px 10px 2px 0;color:#555;white-space:nowrap'>объектов размещено</td><td style='padding:2px 0;text-align:right;font-weight:600'>17</td></tr></table><div style='margin-top:10px;font-weight:600'>Размещённые сервисы</div><table style='border-collapse:collapse;width:100%;margin-top:4px;font-size:12px'><tr style='color:#555;text-align:left'><th style='padding:3px 8px 3px 0'>Сервис</th><th style='padding:3px 8px;text-align:right'>Шт.</th><th style='padding:3px 0;text-align:right'>Вместимость юнита</th></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>аптека</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>2 × 60<br>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>спортивная площадка</td><td style='padding:3px 8px;text-align:right'>3</td><td style='padding:3px 0;text-align:right'>3 × 10</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автовокзал</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 400</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>остановка общественного транспорта</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>магазин у дома</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 50</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>площадка для выгула собак</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 265</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>автозаправка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 70</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>больница</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 110</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>хостел</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 100</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детский сад</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 80</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>детская площадка</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 20</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>ресторан</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 185</td></tr><tr style='border-top:1px solid #eee'><td style='padding:3px 8px 3px 0'>универсам/супермаркет/гипермаркет</td><td style='padding:3px 8px;text-align:right'>1</td><td style='padding:3px 0;text-align:right'>1 × 2 500</td></tr></table></div></div>`)[0];
+                popup_b1f20f2535562daed86de71ef3ebbe9d.setContent(html_e2277820abad0352965ff0a6631a25d9);
+            
+        
+
+        geo_json_fef1cf35a390ce43ee7e00d3eb8b6260.bindPopup(popup_b1f20f2535562daed86de71ef3ebbe9d)
+        ;
+
+        
+    
+</script>
+</html>

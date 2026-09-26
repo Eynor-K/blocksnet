@@ -57,20 +57,18 @@ WEIGHTS = {
 def load_data():
     blocks = gpd.read_file("data/blocks_with_buildings_and_services.gpkg")
     acc_mx = pd.read_pickle("data/acc_mx.pickle")
+    # site_area is the block polygon's area; footprint_area is what the
+    # buildings cover and is not a stand-in for it.
     if "site_area" not in blocks.columns:
-        if "footprint_area" in blocks.columns:
-            blocks = blocks.copy()
-            blocks["site_area"] = blocks["footprint_area"]
-        else:
-            blocks = blocks.copy()
-            blocks["site_area"] = blocks.geometry.area
+        blocks = blocks.copy()
+        blocks["site_area"] = blocks.geometry.area
     keep = blocks.index
     acc_mx = acc_mx.loc[acc_mx.index.intersection(keep), acc_mx.columns.intersection(keep)]
     return blocks, acc_mx
 
 
 def available_service_types(blocks):
-    return [st for st in WEIGHTS if f"{st}__capacity" in blocks.columns]
+    return [st for st in WEIGHTS if f"capacity_{st}" in blocks.columns]
 
 
 def run_one(target_block_id, blocks, acc_mx, *, max_runs, timeout, max_evals, seed):
@@ -86,7 +84,7 @@ def run_one(target_block_id, blocks, acc_mx, *, max_runs, timeout, max_evals, se
         blocks_lu=blocks_lu,
     )
     for st, w in service_weights.items():
-        col = f"{st}__capacity"
+        col = f"capacity_{st}"
         services_df = blocks[[col]].rename(columns={col: "capacity"})
         facade.add_service_type(st, w, services_df)
 

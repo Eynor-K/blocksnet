@@ -124,6 +124,7 @@ def _build_facade(blocks_bfa, capacity_demand):
     for bid in blocks_df.index:
         for st in capacity_demand.get(bid, {}).keys():
             facade._chosen_service_types.add(st)
+    facade._new_residents_demand = {}
     facade.num_params = 0
     facade._last_provisions = {}
     return facade, blocks_df, accessibility
@@ -152,26 +153,39 @@ def test_check_constraints_uses_demand_of_current_x_not_cached():
 
 def test_check_constraints_recomputes_demand_each_call(monkeypatch):
     """P0-1: a single x must produce identical feasibility regardless of any
-    earlier state on the facade."""
+    earlier state on the facade.
+
+    The demand it is checked against no longer depends on x at all (see the
+    2026-08-28 change): it is the demand of the blocks housed to capacity, the
+    same basis the bounds use, so the two can no longer disagree.
+    """
     facade, _, _ = _build_facade({1: 10_000.0}, {1: {"school": 100}})
     facade._converter = _StubConverter([])
-    calls = {"n": 0}
+    facade._new_residents_demand = {"school": {1: 0}}
 
-    def _spy(*_a, **_kw):
-        calls["n"] += 1
-        return {1: {"school": 0}}
+    first = facade.check_constraints(np.array([]))
+    second = facade.check_constraints(np.array([]))
+    assert first == second
 
-    monkeypatch.setattr(facade, "get_delta_demand", _spy)
-    facade.check_constraints(np.array([]))
-    facade.check_constraints(np.array([]))
-    assert calls["n"] == 2
+    # No leftover state is consulted.
+    class _Boom:
+        def __getitem__(self, _):
+            raise AssertionError("check_constraints must not read cached demand")
+
+    facade._last_blocks_services_demand = _Boom()
+    assert facade.check_constraints(np.array([])) == first
 
 
 # --------------------------------------------------------------------------- P1-1
 
 
 def test_get_upper_bound_var_does_not_use_cached_delta_demand():
-    """P1-1: upper bounds must come from the static catchment demand only."""
+    """P1-1: upper bounds must not depend on the previous trial's cached demand.
+
+    They now include the demand of the residents the blocks would house at full
+    housing (see the 2026-08-28 fix), which is a fixed quantity computed once,
+    but they still must never read the cache left by an earlier trial.
+    """
     facade, _, _ = _build_facade({1: 10_000.0}, {1: {"school": 5}})
     var = Variable(
         block_id=1, service_type="school", site_area=0, build_floor_area=100, capacity=10, count=0
@@ -184,9 +198,13 @@ def test_get_upper_bound_var_does_not_use_cached_delta_demand():
             raise AssertionError("get_upper_bound_var must not read _last_blocks_services_demand")
 
     facade._last_blocks_services_demand = _Boom()
-    ub = facade.get_upper_bound_var(0)
-    # Static catchment demand 5 / capacity 10 ⇒ ub = 0 (5 already met by one unit).
-    assert ub == 0
+
+    # Catchment demand 5 alone / capacity 10 ⇒ ub = 0.
+    assert facade.get_upper_bound_var(0) == 0
+
+    # Catchment demand 5 plus 25 from new residents / capacity 10 ⇒ three units.
+    facade._new_residents_demand = {"school": {1: 25}}
+    assert facade.get_upper_bound_var(0) == 3
 
 
 # --------------------------------------------------------------------------- P0-2

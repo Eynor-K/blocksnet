@@ -1,0 +1,581 @@
+{
+  "map": "/root/workflow/projects/ITMO/blocksnet/examples/optimization/services/17blocks_joint_seed3_fixed/17blocks_joint_services_map.html",
+  "run_dir": "/root/workflow/projects/ITMO/blocksnet/examples/optimization/services/17blocks_joint_seed3_fixed",
+  "block_count": 17,
+  "total_objects": 260,
+  "total_capacity": 34150,
+  "blocks": [
+    {
+      "block_id": 823,
+      "source_population": 1244.0,
+      "calculated_additional_population": 0.0,
+      "total_objects": 15,
+      "total_capacity": 3450,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 3,
+          "total_capacity": 150
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 11,
+          "total_capacity": 3280
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        }
+      ],
+      "service_site_area": 90.0,
+      "service_build_floor_area": 9780.0
+    },
+    {
+      "block_id": 955,
+      "source_population": 73.0,
+      "calculated_additional_population": 0.0,
+      "total_objects": 6,
+      "total_capacity": 1110,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 1,
+          "total_capacity": 50
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 4,
+          "total_capacity": 1040
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        }
+      ],
+      "service_site_area": 30.0,
+      "service_build_floor_area": 3290.0
+    },
+    {
+      "block_id": 1071,
+      "source_population": 0.0,
+      "calculated_additional_population": 1893.0,
+      "total_objects": 38,
+      "total_capacity": 3820,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 1,
+          "total_capacity": 50
+        },
+        {
+          "service_type": "fuel",
+          "count": 29,
+          "total_capacity": 2030
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 5,
+          "total_capacity": 1460
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 23230.0,
+      "service_build_floor_area": 8910.0
+    },
+    {
+      "block_id": 1129,
+      "source_population": 0.0,
+      "calculated_additional_population": 815.0,
+      "total_objects": 56,
+      "total_capacity": 8250,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 13,
+          "total_capacity": 2300
+        },
+        {
+          "service_type": "fuel",
+          "count": 27,
+          "total_capacity": 1890
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 13,
+          "total_capacity": 3780
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 21760.0,
+      "service_build_floor_area": 17250.0
+    },
+    {
+      "block_id": 1182,
+      "source_population": 636.0,
+      "calculated_additional_population": 1.0,
+      "total_objects": 13,
+      "total_capacity": 2140,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 8,
+          "total_capacity": 1290
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 3,
+          "total_capacity": 580
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 110.0,
+      "service_build_floor_area": 5350.0
+    },
+    {
+      "block_id": 1411,
+      "source_population": 1478.0,
+      "calculated_additional_population": 999.0,
+      "total_objects": 23,
+      "total_capacity": 1740,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 2,
+          "total_capacity": 230
+        },
+        {
+          "service_type": "fuel",
+          "count": 17,
+          "total_capacity": 1150
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 1,
+          "total_capacity": 80
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 13200.0,
+      "service_build_floor_area": 4345.0
+    },
+    {
+      "block_id": 1428,
+      "source_population": 133.0,
+      "calculated_additional_population": 103.0,
+      "total_objects": 4,
+      "total_capacity": 160,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 1,
+          "total_capacity": 50
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 1,
+          "total_capacity": 80
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        }
+      ],
+      "service_site_area": 0.0,
+      "service_build_floor_area": 660.0
+    },
+    {
+      "block_id": 1429,
+      "source_population": 475.0,
+      "calculated_additional_population": 84.0,
+      "total_objects": 7,
+      "total_capacity": 550,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 1,
+          "total_capacity": 50
+        },
+        {
+          "service_type": "fuel",
+          "count": 2,
+          "total_capacity": 140
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 1,
+          "total_capacity": 80
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 1600.0,
+      "service_build_floor_area": 3200.0
+    },
+    {
+      "block_id": 1433,
+      "source_population": 396.0,
+      "calculated_additional_population": 95.0,
+      "total_objects": 8,
+      "total_capacity": 490,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 3,
+          "total_capacity": 280
+        },
+        {
+          "service_type": "fuel",
+          "count": 2,
+          "total_capacity": 100
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 1,
+          "total_capacity": 80
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        }
+      ],
+      "service_site_area": 1230.0,
+      "service_build_floor_area": 920.0
+    },
+    {
+      "block_id": 1473,
+      "source_population": 1610.0,
+      "calculated_additional_population": 835.0,
+      "total_objects": 14,
+      "total_capacity": 2400,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 5,
+          "total_capacity": 690
+        },
+        {
+          "service_type": "fuel",
+          "count": 1,
+          "total_capacity": 70
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 5,
+          "total_capacity": 1360
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 830.0,
+      "service_build_floor_area": 7235.0
+    },
+    {
+      "block_id": 1518,
+      "source_population": 45.0,
+      "calculated_additional_population": 0.0,
+      "total_objects": 6,
+      "total_capacity": 570,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 3,
+          "total_capacity": 150
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 2,
+          "total_capacity": 400
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        }
+      ],
+      "service_site_area": 90.0,
+      "service_build_floor_area": 1500.0
+    },
+    {
+      "block_id": 1526,
+      "source_population": 455.0,
+      "calculated_additional_population": 0.0,
+      "total_objects": 9,
+      "total_capacity": 1570,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 4,
+          "total_capacity": 590
+        },
+        {
+          "service_type": "fuel",
+          "count": 1,
+          "total_capacity": 70
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 2,
+          "total_capacity": 640
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 830.0,
+      "service_build_floor_area": 4785.0
+    },
+    {
+      "block_id": 1907,
+      "source_population": 1245.0,
+      "calculated_additional_population": 678.0,
+      "total_objects": 18,
+      "total_capacity": 1220,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 1,
+          "total_capacity": 50
+        },
+        {
+          "service_type": "fuel",
+          "count": 8,
+          "total_capacity": 560
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 6,
+          "total_capacity": 260
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 1,
+          "total_capacity": 80
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 7600.0,
+      "service_build_floor_area": 5920.0
+    },
+    {
+      "block_id": 2043,
+      "source_population": 0.0,
+      "calculated_additional_population": 2.0,
+      "total_objects": 5,
+      "total_capacity": 1090,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 1,
+          "total_capacity": 50
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 4,
+          "total_capacity": 1040
+        }
+      ],
+      "service_site_area": 30.0,
+      "service_build_floor_area": 3215.0
+    },
+    {
+      "block_id": 2093,
+      "source_population": 0.0,
+      "calculated_additional_population": 74.0,
+      "total_objects": 12,
+      "total_capacity": 1140,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 5,
+          "total_capacity": 410
+        },
+        {
+          "service_type": "fuel",
+          "count": 2,
+          "total_capacity": 120
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 3,
+          "total_capacity": 580
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        }
+      ],
+      "service_site_area": 1540.0,
+      "service_build_floor_area": 2600.0
+    },
+    {
+      "block_id": 2098,
+      "source_population": 5091.0,
+      "calculated_additional_population": 461.0,
+      "total_objects": 24,
+      "total_capacity": 4050,
+      "service_types": [
+        {
+          "service_type": "convenience",
+          "count": 11,
+          "total_capacity": 1960
+        },
+        {
+          "service_type": "fuel",
+          "count": 5,
+          "total_capacity": 350
+        },
+        {
+          "service_type": "hairdresser",
+          "count": 1,
+          "total_capacity": 10
+        },
+        {
+          "service_type": "kindergarten",
+          "count": 5,
+          "total_capacity": 1460
+        },
+        {
+          "service_type": "pharmacy",
+          "count": 1,
+          "total_capacity": 20
+        },
+        {
+          "service_type": "school",
+          "count": 1,
+          "total_capacity": 250
+        }
+      ],
+      "service_site_area": 4080.0,
+      "service_build_floor_area": 8585.0
+    },
+    {
+      "block_id": 2886,
+      "source_population": 0.0,
+      "calculated_additional_population": 0.0,
+      "total_objects": 2,
+      "total_capacity": 400,
+      "service_types": [
+        {
+          "service_type": "kindergarten",
+          "count": 2,
+          "total_capacity": 400
+        }
+      ],
+      "service_site_area": 0.0,
+      "service_build_floor_area": 1350.0
+    }
+  ]
+}

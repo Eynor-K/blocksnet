@@ -56,16 +56,12 @@ WEIGHTS = {
 def load_data():
     blocks = gpd.read_file("data/blocks_with_buildings_and_services.gpkg")
     acc_mx = pd.read_pickle("data/acc_mx.pickle")
-    # blocks must expose ``site_area`` for AreaChecker; footprint_area is the
-    # closest analogue. geometry is dropped only after computing a fallback
-    # site_area, just in case footprint_area is missing.
+    # blocks must expose ``site_area`` for AreaChecker: the area of the block
+    # polygon, which FSI and GSI are taken against. footprint_area is the area
+    # the buildings cover and is not a stand-in for it.
     if "site_area" not in blocks.columns:
-        if "footprint_area" in blocks.columns:
-            blocks = blocks.copy()
-            blocks["site_area"] = blocks["footprint_area"]
-        else:
-            blocks = blocks.copy()
-            blocks["site_area"] = blocks.geometry.area
+        blocks = blocks.copy()
+        blocks["site_area"] = blocks.geometry.area
     blocks = blocks.drop(columns=["geometry"]).copy()
     # Align acc_mx to the block index. acc_mx occasionally references blocks
     # that did not survive to blocks.gpkg (e.g. merged or filtered). Trimming
@@ -77,11 +73,11 @@ def load_data():
 
 
 def available_service_types(blocks, target_lu):
-    capacity_cols = [c for c in blocks.columns if c.endswith("__capacity")]
+    capacity_cols = [c for c in blocks.columns if c.startswith("capacity_")]
     st_present = []
     for col in capacity_cols:
-        st = col[: -len("__capacity")]
-        if st in WEIGHTS and f"{st}__capacity" in blocks.columns:
+        st = col[len("capacity_") :]
+        if st in WEIGHTS:
             st_present.append(st)
     return st_present
 
@@ -104,7 +100,7 @@ def run_one(target_block_id, blocks, acc_mx, *, max_runs, timeout, max_evals, se
         blocks_lu=blocks_lu,
     )
     for st, w in service_weights.items():
-        col = f"{st}__capacity"
+        col = f"capacity_{st}"
         services_df = blocks[[col]].rename(columns={col: "capacity"})
         facade.add_service_type(st, w, services_df)
 
